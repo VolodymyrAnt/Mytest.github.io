@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex">
+  <title>PL@yer</title>
+  <script src="./js/jquery-1.7.js"></script>
+  <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.js"></script>-->
+  <link rel="icon" href="icon.ico" type="image">
+
+<!--<link rel="icon" href="data:image/png;base64, 
+iVBORw0KGgoAAAANSUhEUgAAABEAAAAQCAMAAADH72RtAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAwBQTFRF
+AAAACQkJDg4OFBYV/Pz8/v7+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdfl4OAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVU
+IHYzLjUuMTFH80I3AAAAV0lEQVQoU42PQRKAIAwDYzX9/5NNikpHOdgZLpslFKQn2mBNuHKOcn3/
+vpUkBWQ/ZCh/SO/5NlcLX87Yqr0VIWMTGcn1OYCoBOn1nDBFBKxUtQ4Yu5M5J4WWBIzNjPxoAAAA
+AElFTkSuQmCC" type="image/png">
+  <!--<link rel="stylesheet" type="text/css" href="/css/normalize.css">-->
+  <!--<link rel="stylesheet" type="text/css" href="/css/result-light.css">-->
+  <!-- CSS -->
+  <style type="text/css">
+body{margin: 0 auto;width:320px;text-align: center;padding-top:30px;}
+#playlist,audio{background:#666;padding:10px;border-radius: 10px;}
+.active a{color:#5DB0E6;text-decoration:none;}
+li a{color:#eeeedd;background:#333;padding:5px;display:block;}
+ul{list-style: none;}
+li a:hover{text-decoration:none;
+background: #707070;}
+  </style>
+  <!-- JAVA SCRIPT -->
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
+var audio;
+var playlist;
+var tracks;
+var current;
+
+init();
+function init(){
+    current = 0;
+    audio = $('audio');
+    playlist = $('#playlist');
+    tracks = playlist.find('li a');
+    len = tracks.length - 1;
+    audio[0].volume = .10;
+    playlist.find('a').click(function(e){
+        e.preventDefault();
+        link = $(this);
+        current = link.parent().index();
+        run(link, audio[0]);
+    });
+    audio[0].addEventListener('ended',function(e){
+        current++;
+        if(current == len){
+            current = 0;
+            link = playlist.find('a')[0];
+        }else{
+            link = playlist.find('a')[current];    
+        }
+        run($(link),audio[0]);
+    });
+}
+function run(link, player){
+        player.src = link.attr('href');
+        par = link.parent();
+        par.addClass('active').siblings().removeClass('active');
+        audio[0].load();
+        audio[0].play();
+}
+});//]]> 
+</script>
+<style type="text/css"></style>
+</head>
+<!-- HTML -->
+<body>
+<div class=box>
+      <audio id="audio" preload="auto" tabindex="0" controls="" type="audio/mpeg" src="">
+        <source type="audio/mp3" src="">
+        Sorry, your browser does not support HTML5 audio.
+    </audio>
+    <ul id="playlist">
+        <li class=""><a href="http://air.aristocrats.fm:8000/live2">Aristocrats</a></li>
+        <li class="active"><a href="http://streaming204.radionomy.com/Healing-Music-Radio">Healing-Music</a></li>
+         <li><a href="http://cast.loungefm.com.ua/acoustic128">LoungeFmAc</a></li>
+         <li><a href="http://streaming206.radionomy.com:80/goldies-time">Goldies-time</a></li>
+         <li><a href="http://streaming204.radionomy.com:80/-BACO-LIBROS-Y-CAF--RADIO">Baco-Libros</a></li>
+         <li><a href="http://pub1.player-radio.ru/svoe-64.mp3">СвоёРадио</a></li>
+         <li><a href="http://cast.jamfm.com.ua/jamfm">JamFm</a></li>
+         <li><a href="http://radio-hoster.ru:8208/live">RadiO</a></li>
+         <li><a href="http://play.colorsound.com.ua:80/colorsound">Color</a></li>
+         <li><a href="http://cast.loungefm.com.ua/chillout128">Chillout</a></li>
+        <!--http://streaming207.radionomy.com:80/100-CHILL
+        <li><a href="https://dl.dropboxusercontent.com/content_link/vhNxNilGC8IJUicoFAG6ho40IS3Y48ILVGgG2ymRujMKGbtfWsx8IosrAKRAXIxa/file">patrikbkarl chamber symph</a></li>-->
+    </ul>
+</div>
+</body>
+</html>
+<!--Worck in Chrome Версия 47.0.2526.111 & Firefox 41.0.2-->
